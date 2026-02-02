@@ -11,3 +11,7 @@ while True:
     time.sleep(0.5)
     led.value(0)  # Zhasnout
     time.sleep(0.5)
+
+
+
+
