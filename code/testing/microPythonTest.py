@@ -12,6 +12,4 @@ while True:
     led.value(0)  # Zhasnout
     time.sleep(0.5)
 
-
-
-
+#skill issue ze nemas "LED" pin
