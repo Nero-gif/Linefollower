@@ -5,6 +5,6 @@
     <option name="lastShownVersion" value="2026.1.1" />
     <option name="legacyVolumeSupportEnabled" value="true" />
     <option name="pluginEnabled" value="true" />
-    <option name="portName" value="COM5" />
+    <option name="portName" value="COM10" />
   </component>
 </project>
