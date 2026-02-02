@@ -4,6 +4,7 @@ import time
 enc_a = Pin(1, Pin.IN, Pin.PULL_UP)
 enc_b = Pin(0, Pin.IN, Pin.PULL_UP)
 
+global positionMotoru
 positionMotoru = 0
 
 
@@ -115,7 +116,6 @@ while True:
         motorR1.high()
         motorR2.low()
 
-        set_angle_X(20)
         motorPWMLeft.duty_u16(8000)
         motorPWMRight.duty_u16(18000)
 
@@ -125,7 +125,6 @@ while True:
         motorR1.low()
         motorR2.high()
 
-        set_angle_X(-20)
         motorPWMLeft.duty_u16(18000)
         motorPWMRight.duty_u16(8000)
 
