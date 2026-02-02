@@ -1,7 +1,9 @@
 from machine import Pin
-import time, random
+import rp2
 
 led = Pin("LED", Pin.OUT)
 while True:
-    led.toggle()
-    time.sleep(random.uniform(0, .5))
+    if rp2.bootsel_button():
+        led.on()
+    else:
+        led.off()
