@@ -1,1 +1,2 @@
 print ("Yo, vitam te tady. Jenom ti chcu poprat hodne stesti pry prochazeni tohohle kodu, bo ani ja mu nerozumim.")
+print ("frfr")
