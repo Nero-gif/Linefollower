@@ -13,3 +13,4 @@ while True:
     time.sleep(0.5)
 
 #skill issue ze nemas "LED" pin
+#skill issue caled "Polandsky"
