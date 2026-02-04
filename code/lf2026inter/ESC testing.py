@@ -17,11 +17,11 @@ try:
     set_speed(1000)  # minimum
     time.sleep(5)
 
-    for i in range(1000, 1450, 50):
+    for i in range(1000, 1100, 50):
         set_speed(i)
         time.sleep(2)
 
-    time.sleep(5)
+    time.sleep(30)
     # print("Start motoru...")
     # set_speed(1100)
     # time.sleep(5)
