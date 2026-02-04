@@ -17,7 +17,7 @@ try:
     set_speed(1000)  # minimum
     time.sleep(5)
 
-    for i in range(1000, 1250, 10):
+    for i in range(1000, 1450, 50):
         set_speed(i)
         time.sleep(2)
 
