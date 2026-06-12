@@ -1,7 +1,7 @@
 import time
 from micropython import const
 import framebuf
-
+#ngas in paris
 # Registry a příkazy
 SET_CONTRAST = const(0x81)
 SET_ENTIRE_ON = const(0xA4)
