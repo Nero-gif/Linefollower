@@ -1,4 +1,4 @@
-27436186887921140
+27439770537055375
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -71809,6 +71809,20 @@ Linefollower
 Heatsink_HS-123-25_TO220_STONECOLD
 Heatsink, 35mm x 26mm, 1x Fixation 3mm, Fischer SK486-35
 heatsink
+0
+1
+1
+Linefollower
+Jumper_cam1
+Harwin SMD jumper link, 12.3x2.3mm, 1.8mm height, 10.9mm pad pitch, https://cdn.harwin.com/pdfs/S1621R.pdf
+SMD jumper link
+0
+2
+2
+Linefollower
+Jumper_pin
+Through hole straight socket strip, 1x01, 2.54mm pitch, single row (from Kicad 4.0.7), script generated
+Through hole socket strip THT 1x01 2.54mm single row
 0
 1
 1
