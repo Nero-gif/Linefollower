@@ -470,8 +470,8 @@
         "priority": 2147483647,
         "schematic_color": "rgba(0, 0, 0, 0.000)",
         "track_width": 0.4,
-        "via_diameter": 0.6,
-        "via_drill": 0.3,
+        "via_diameter": 1.5,
+        "via_drill": 0.8,
         "wire_width": 6
       },
       {
@@ -514,10 +514,6 @@
         "pattern": "Net-(BT2-+)"
       },
       {
-        "netclass": "Pwr_12V6",
-        "pattern": "Net-(BT2--)"
-      },
-      {
         "netclass": "Pwr_3V3",
         "pattern": "/3V3"
       },
@@ -526,7 +522,7 @@
         "pattern": "/5V"
       },
       {
-        "netclass": "Pwr_6V",
+        "netclass": "Pwr_12V6",
         "pattern": "/6V"
       },
       {
@@ -548,6 +544,18 @@
       {
         "netclass": "Pwr_6V",
         "pattern": "Net-(J3-BO2)"
+      },
+      {
+        "netclass": "Pwr_12V6",
+        "pattern": "Net-(Q1-G)"
+      },
+      {
+        "netclass": "Pwr_12V6",
+        "pattern": "Net-(D1-K)"
+      },
+      {
+        "netclass": "Default",
+        "pattern": ""
       }
     ]
   },
