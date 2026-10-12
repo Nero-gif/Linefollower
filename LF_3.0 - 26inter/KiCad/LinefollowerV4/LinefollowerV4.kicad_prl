@@ -54,6 +54,7 @@
     "zone_display_mode": 1
   },
   "git": {
+    "integration_disabled": false,
     "repo_type": "",
     "repo_username": "",
     "ssh_key": ""
@@ -88,16 +89,16 @@
       9
     ],
     "col_widths": [
-      186,
-      171,
-      112,
-      110,
-      112,
-      112,
-      167,
-      99,
-      112,
-      112
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
     ],
     "custom_group_rules": [],
     "expanded_rows": [],
