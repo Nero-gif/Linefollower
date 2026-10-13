@@ -1,0 +1,5 @@
+potřeba přerušit cestu na teensy
+potřeba na každý motor dát přímo na piny motoru 100nF kondenzátor
+
+v kodu je třeba hlídat vybití baterky
+podle napětí na baterce regulovat maximální PWM

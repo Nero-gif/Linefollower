@@ -5557,6 +5557,12 @@
 		(uuid "75fca97e-6dd4-47dd-81b7-0d6627c02158")
 	)
 	(junction
+		(at 45.72 50.8)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "78b2f79c-e03c-4c59-89d1-a7e8dece2815")
+	)
+	(junction
 		(at 220.98 96.52)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -5811,6 +5817,16 @@
 			(type default)
 		)
 		(uuid "0ba306db-c75e-4b1a-9459-a243e24eca1f")
+	)
+	(wire
+		(pts
+			(xy 45.72 39.37) (xy 45.72 50.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0d88c165-3db5-4762-a2e0-030a6ae5b038")
 	)
 	(wire
 		(pts
@@ -6211,6 +6227,16 @@
 			(type default)
 		)
 		(uuid "4bf2461b-a374-4104-a00e-05f909a0b3c8")
+	)
+	(wire
+		(pts
+			(xy 45.72 50.8) (xy 46.99 50.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4db3493f-cbd1-4b6a-bfcb-b905250a3cb5")
 	)
 	(wire
 		(pts
@@ -6884,7 +6910,7 @@
 	)
 	(wire
 		(pts
-			(xy 41.91 50.8) (xy 46.99 50.8)
+			(xy 41.91 50.8) (xy 45.72 50.8)
 		)
 		(stroke
 			(width 0)
@@ -7511,6 +7537,16 @@
 			(justify left bottom)
 		)
 		(uuid "638259e9-67a9-451b-bca2-e2a1ec572e48")
+	)
+	(label "GND"
+		(at 45.72 31.75 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "710c43c8-bd26-4376-b56c-f35d0e073a4f")
 	)
 	(label "3V3"
 		(at 148.59 156.21 0)
@@ -9278,6 +9314,73 @@
 			(project "LF_CB_modular_v1"
 				(path "/44d8d455-f542-4ff0-9bd6-aa534d2f06ad"
 					(reference "U1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:C_Polarized")
+		(at 45.72 35.56 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "cbb375d9-2bd0-4575-acfa-16d24b725a33")
+		(property "Reference" "C6"
+			(at 38.1 36.449 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "C_Polarized_47u"
+			(at 40.64 36.449 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Capacitor_THT:CP_Radial_D6.3mm_P2.50mm"
+			(at 44.7548 31.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 45.72 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Polarized capacitor"
+			(at 45.72 35.56 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "30c6df97-fbc8-489e-96a1-599dc4fc9750")
+		)
+		(pin "1"
+			(uuid "0cbbc1d9-e39d-42e1-8ab7-806cfeb29246")
+		)
+		(instances
+			(project "LF_CB_modular_v1"
+				(path "/44d8d455-f542-4ff0-9bd6-aa534d2f06ad"
+					(reference "C6")
 					(unit 1)
 				)
 			)
