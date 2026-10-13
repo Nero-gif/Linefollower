@@ -143,7 +143,7 @@
 		(descr "Resistor, Axial_DIN0204 series, Axial, Horizontal, pin pitch=7.62mm, 0.167W, length*diameter=3.6*1.6mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
 		(tags "Resistor Axial_DIN0204 series Axial Horizontal pin pitch 7.62mm 0.167W length 3.6mm diameter 1.6mm")
 		(property "Reference" "R1"
-			(at 3.81 -1.92 90)
+			(at 9.6 -0.1 0)
 			(layer "F.SilkS")
 			(uuid "f8b6300d-a744-47a1-a8eb-b17d235a4b8c")
 			(effects
@@ -587,9 +587,9 @@
 		(descr "C, Disc series, Radial, pin pitch=5.00mm, diameter*width=4.3*1.9mm^2, Capacitor, http://www.vishay.com/docs/45233/krseries.pdf")
 		(tags "C Disc series Radial pin pitch 5.00mm diameter 4.3mm width 1.9mm Capacitor")
 		(property "Reference" "C5"
-			(at 2.5 -2.2 90)
+			(at -1.5 0.11 0)
 			(layer "F.SilkS")
-			(uuid "9e5fec4a-0f82-433f-8a43-ee675630c356")
+			(uuid "4916a777-ed4b-4803-9fbd-6f73ddf3dbac")
 			(effects
 				(font
 					(size 1 1)
@@ -600,7 +600,7 @@
 		(property "Value" "C_100n"
 			(at 2.5 2.2 90)
 			(layer "F.Fab")
-			(uuid "d3565115-d01b-4523-a382-23043649e460")
+			(uuid "b54fa1c3-e6f9-4d5b-b560-898c15404839")
 			(effects
 				(font
 					(size 1 1)
@@ -612,7 +612,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "ef651809-e8b0-4359-a903-cc141bed89cb")
+			(uuid "ea254889-dd2b-4226-ba8e-643f44da7142")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -624,7 +624,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "fcb2a71c-1010-4ed8-bea0-a0a03af54798")
+			(uuid "f085b716-586d-425b-bb26-6014ee79d35a")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -748,7 +748,7 @@
 		(uuid "3286e419-5eb3-41d7-b19e-cc810938b378")
 		(at 78.37 97.61 -90)
 		(property "Reference" "U1"
-			(at 0 -10.16 90)
+			(at -21.61 -3.13 0)
 			(layer "F.SilkS")
 			(uuid "8e8b17bc-8a5c-4c99-82f4-f61a55991797")
 			(effects
@@ -2064,7 +2064,7 @@
 		(descr "Heatsink, 35mm x 26mm, 1x Fixation 3mm, Fischer SK486-35")
 		(tags "heatsink")
 		(property "Reference" "HS1"
-			(at 0.5 -7 0)
+			(at 0 -7 0)
 			(layer "F.SilkS")
 			(uuid "30e4d98d-bf71-4c5e-b718-ed46ce8eff3f")
 			(effects
@@ -2397,7 +2397,7 @@
 		(descr "Through hole straight socket strip, 1x02, 2.54mm pitch, single row (from Kicad 4.0.7), script generated")
 		(tags "Through hole socket strip THT 1x02 2.54mm single row")
 		(property "Reference" "J4"
-			(at 0 -2.77 0)
+			(at 0 4.95 0)
 			(layer "F.SilkS")
 			(uuid "fbbf02b9-badf-4f29-8098-2dd2ced6e989")
 			(effects
@@ -2650,7 +2650,7 @@
 		(descr "JST XH series connector, B2B-XH-A (http://www.jst-mfg.com/product/pdf/eng/eXH.pdf), generated with kicad-footprint-generator")
 		(tags "connector JST XH vertical")
 		(property "Reference" "SW1"
-			(at 1.25 -3.55 90)
+			(at 6.25 0.15 0)
 			(layer "F.SilkS")
 			(uuid "edb88c07-59c1-45e8-a50b-e9214d338ec3")
 			(effects
@@ -3461,7 +3461,7 @@
 		(descr "C, Disc series, Radial, pin pitch=5.00mm, diameter*width=4.3*1.9mm^2, Capacitor, http://www.vishay.com/docs/45233/krseries.pdf")
 		(tags "C Disc series Radial pin pitch 5.00mm diameter 4.3mm width 1.9mm Capacitor")
 		(property "Reference" "C3"
-			(at 2.5 -2.2 90)
+			(at 2.75 1.85 90)
 			(layer "F.SilkS")
 			(uuid "838f5e73-d72a-44bb-b55b-64e9b2a1e231")
 			(effects
@@ -3624,7 +3624,7 @@
 		(descr "TO-220-3, Vertical, RM 2.54mm, see https://www.vishay.com/docs/66542/to-220-1.pdf, generated with kicad-footprint-generator TO_SOT_THT_generate.py")
 		(tags "TO-220-3 Vertical RM 2.54mm")
 		(property "Reference" "Q1"
-			(at 2.54 -4.1 90)
+			(at 8.33 -0.6 0)
 			(layer "F.SilkS")
 			(uuid "94555a22-ba79-477a-a41b-9be5f03f156f")
 			(effects
@@ -3860,7 +3860,7 @@
 		(descr "Resistor, Axial_DIN0204 series, Axial, Horizontal, pin pitch=7.62mm, 0.167W, length*diameter=3.6*1.6mm^2, http://cdn-reichelt.de/documents/datenblatt/B400/1_4W%23YAG.pdf")
 		(tags "Resistor Axial_DIN0204 series Axial Horizontal pin pitch 7.62mm 0.167W length 3.6mm diameter 1.6mm")
 		(property "Reference" "R3"
-			(at 3.81 -1.92 90)
+			(at 3.81 1.65 90)
 			(layer "F.SilkS")
 			(uuid "af2ce9bf-23a3-4e24-9b70-d0b5d3ddffed")
 			(effects
@@ -4034,9 +4034,9 @@
 		(descr "TO-220-3, Vertical, RM 2.54mm, see https://www.vishay.com/docs/66542/to-220-1.pdf, generated with kicad-footprint-generator TO_SOT_THT_generate.py")
 		(tags "TO-220-3 Vertical RM 2.54mm")
 		(property "Reference" "U2"
-			(at 2.54 -4.1 0)
+			(at 8.69 -0.74939 90)
 			(layer "F.SilkS")
-			(uuid "58ac747e-4070-4b76-bb24-879cfb1025ae")
+			(uuid "0442c86b-b5bc-4fc3-bd75-e46aafbfa8c5")
 			(effects
 				(font
 					(size 1 1)
@@ -4047,7 +4047,7 @@
 		(property "Value" "LM2940CT-5.0 _TO220"
 			(at 2.54 2.2 0)
 			(layer "F.Fab")
-			(uuid "7efcc2d3-ce11-4726-a78e-9dee99390755")
+			(uuid "ed199a37-6968-4be8-8cb2-b9a6ddb8d351")
 			(effects
 				(font
 					(size 1 1)
@@ -4059,7 +4059,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "8e592e91-b7e9-4d19-a5ab-5b3e87bc6f74")
+			(uuid "828e4205-3bde-4739-a9f8-aa1710751fc4")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4071,7 +4071,7 @@
 			(at 0 0 0)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "64264851-0cf5-4639-90c4-bbff6bf22397")
+			(uuid "183e4605-1685-4f50-81bb-28d6c008f022")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4270,9 +4270,9 @@
 		(descr "C, Disc series, Radial, pin pitch=5.00mm, diameter*width=4.3*1.9mm^2, Capacitor, http://www.vishay.com/docs/45233/krseries.pdf")
 		(tags "C Disc series Radial pin pitch 5.00mm diameter 4.3mm width 1.9mm Capacitor")
 		(property "Reference" "C4"
-			(at 2.5 -2.2 90)
+			(at -2 0 0)
 			(layer "F.SilkS")
-			(uuid "63c64c0c-c600-4d1b-bb50-1a09164654b2")
+			(uuid "7632f3ae-88c0-4910-9f17-3546ea910cd0")
 			(effects
 				(font
 					(size 1 1)
@@ -4283,7 +4283,7 @@
 		(property "Value" "C_100n"
 			(at 2.5 2.2 90)
 			(layer "F.Fab")
-			(uuid "6397d2c7-fb7c-4aab-b119-4e9216d63830")
+			(uuid "5af0f3d0-3361-4b5e-9079-4ba6ad148ac0")
 			(effects
 				(font
 					(size 1 1)
@@ -4295,7 +4295,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "c01a4304-77d5-44e2-a6e3-cdebfeacf23f")
+			(uuid "e59d13e7-2e83-4042-9ea4-e75405653600")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4307,7 +4307,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "071e9629-7074-474d-834b-58b3ff036613")
+			(uuid "51eb9e02-7435-464c-a9fb-d8ecbbc0c5cc")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4433,7 +4433,7 @@
 		(descr "Through hole straight socket strip, 1x01, 2.54mm pitch, single row (from Kicad 4.0.7), script generated")
 		(tags "Through hole socket strip THT 1x01 2.54mm single row")
 		(property "Reference" "JW2"
-			(at 0 -2.77 0)
+			(at 2.5 0 0)
 			(layer "F.SilkS")
 			(uuid "06878e4f-56f3-45f5-8f2b-b3b4f55e9ea1")
 			(effects
@@ -5244,7 +5244,7 @@
 		(descr "Through hole IDC box header, 2x12, 2.54mm pitch, DIN 41651 / IEC 60603-13, double rows, https://docs.google.com/spreadsheets/d/16SsEcesNF15N3Lb4niX7dcUr-NY5_MFPQhobNuNppn4/edit#gid=0")
 		(tags "Through hole vertical IDC box header THT 2x12 2.54mm double row")
 		(property "Reference" "J1"
-			(at 1.27 -6.1 90)
+			(at 0.3 34.34 90)
 			(layer "F.SilkS")
 			(uuid "57f9e5b2-6adb-4e14-9068-aa5909511f88")
 			(effects
@@ -5861,7 +5861,7 @@
 		(descr "Through hole straight socket strip, 1x01, 2.54mm pitch, single row (from Kicad 4.0.7), script generated")
 		(tags "Through hole socket strip THT 1x01 2.54mm single row")
 		(property "Reference" "J9"
-			(at 0 -2.77 0)
+			(at 0 2.5 0)
 			(layer "F.SilkS")
 			(uuid "bde7637d-16d1-4740-96fb-7875d7047914")
 			(effects
@@ -6093,9 +6093,9 @@
 		(descr "C, Disc series, Radial, pin pitch=5.00mm, diameter*width=5*2.5mm^2, Capacitor, http://cdn-reichelt.de/documents/datenblatt/B300/DS_KERKO_TC.pdf")
 		(tags "C Disc series Radial pin pitch 5.00mm diameter 5mm width 2.5mm Capacitor")
 		(property "Reference" "C1"
-			(at 2.5 -2.5 90)
+			(at 7 0 0)
 			(layer "F.SilkS")
-			(uuid "fe05b5f1-aeae-4df5-8805-4d8444bb111b")
+			(uuid "fbfba1cf-6b0b-4ee2-a4b6-273fa79f679d")
 			(effects
 				(font
 					(size 1 1)
@@ -6106,7 +6106,7 @@
 		(property "Value" "C_1u"
 			(at 2.5 2.5 90)
 			(layer "F.Fab")
-			(uuid "364c02ff-fbc4-48fb-8620-487c88f231bf")
+			(uuid "e5b5b29d-1d3f-40da-ad9c-645550dad9e0")
 			(effects
 				(font
 					(size 1 1)
@@ -6118,7 +6118,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "3cb675e3-add7-40eb-897a-3a9f93a8cc51")
+			(uuid "f7418583-bb12-426c-82ce-61f47661fcb2")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6130,7 +6130,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "59ebd793-bea7-46c9-a51b-d3627479b23d")
+			(uuid "3806d76b-55ed-431e-b88b-27a31a845f08")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6276,7 +6276,7 @@
 		(descr "Through hole straight socket strip, 1x01, 2.54mm pitch, single row (from Kicad 4.0.7), script generated")
 		(tags "Through hole socket strip THT 1x01 2.54mm single row")
 		(property "Reference" "JW3"
-			(at 0 -2.77 0)
+			(at 2.5 0 0)
 			(layer "F.SilkS")
 			(uuid "91552d87-f6df-4906-856a-8cadaaa4e5e7")
 			(effects
@@ -6390,7 +6390,7 @@
 		(descr "Connector XT60 Horizontal PCB Female, https://www.tme.eu/Document/b13629717d44ae038681dba08d18c0b6/XT60PW-M.pdf")
 		(tags "RC Connector XT60")
 		(property "Reference" "BT2"
-			(at 3.6 -17.5 90)
+			(at 3.6 -6.5 90)
 			(layer "F.SilkS")
 			(uuid "6468c0a2-b872-4c5b-b1e9-c9df5241b54b")
 			(effects
@@ -6645,7 +6645,7 @@
 			(uuid "a08825d8-6f4b-44bc-bfed-8e99c41a3f56")
 		)
 		(fp_text user "+"
-			(at 9.5 2.5 90)
+			(at 12.85 0 90)
 			(layer "F.SilkS")
 			(uuid "797370de-7432-4777-af5c-988ba1d86d35")
 			(effects
@@ -6656,7 +6656,7 @@
 			)
 		)
 		(fp_text user "-"
-			(at -2.8 0.55 90)
+			(at -5.65 0 90)
 			(layer "F.SilkS")
 			(uuid "90a7e172-c39f-42c5-9c0e-1b584cddd365")
 			(effects
@@ -6738,7 +6738,7 @@
 		(descr "Through hole straight pin header, 2x08, 2.54mm pitch, double rows")
 		(tags "Through hole pin header THT 2x08 2.54mm double row")
 		(property "Reference" "J3"
-			(at 7.62 -2.54 0)
+			(at 7.625 8.89 0)
 			(layer "F.SilkS")
 			(uuid "79746a52-5d8b-4f93-ba48-9de5e1bd4637")
 			(effects
@@ -7147,9 +7147,9 @@
 		(descr "CP, Radial series, Radial, pin pitch=2.50mm, diameter=6.3mm, height=7mm, Electrolytic Capacitor")
 		(tags "CP Radial series Radial pin pitch 2.50mm diameter 6.3mm height 7mm Electrolytic Capacitor")
 		(property "Reference" "C2"
-			(at 1.25 -4.4 90)
+			(at 6 0 0)
 			(layer "F.SilkS")
-			(uuid "7e0bc4dd-9685-496a-b517-b70fdf56695b")
+			(uuid "415e5e94-b74c-4ad5-815d-3475845aabe2")
 			(effects
 				(font
 					(size 1 1)
@@ -7160,7 +7160,7 @@
 		(property "Value" "C_Polarized_47u"
 			(at 1.25 4.4 90)
 			(layer "F.Fab")
-			(uuid "195f7eaf-6d7c-491b-8afa-4b2c76758e60")
+			(uuid "7d961dae-b139-4154-a06f-83a87ceb0f68")
 			(effects
 				(font
 					(size 1 1)
@@ -7172,7 +7172,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "0ae85cb0-d0bc-4f3c-b882-4e013cee6d61")
+			(uuid "2b064fb2-57cb-4dc9-9c1d-ab8a4544681e")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7184,7 +7184,7 @@
 			(at 0 0 90)
 			(layer "F.Fab")
 			(hide yes)
-			(uuid "0d4717ae-49fa-4878-9f1a-f0bf2d94a183")
+			(uuid "29e2e5e0-5c8c-4abe-b759-9efb92ef3f2f")
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9429,6 +9429,28 @@
 				(xyz 0 0 0)
 			)
 		)
+	)
+	(gr_rect
+		(start 79.5 74.5)
+		(end 83.5 77.5)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill no)
+		(layer "F.SilkS")
+		(uuid "eaa79741-6133-41a8-9df9-168f72bc63e2")
+	)
+	(gr_rect
+		(start 80 75)
+		(end 83 77)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill no)
+		(layer "F.SilkS")
+		(uuid "ea652ac9-09fa-40f2-be2c-4b70a26d259d")
 	)
 	(gr_rect
 		(start 39 41)
