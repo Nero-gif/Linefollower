@@ -7649,12 +7649,12 @@
 		(uuid "dba5c373-ce79-4f4a-83d3-944835b8e570")
 	)
 	(label "Cam_SCK"
-		(at 52.07 81.28 180)
+		(at 52.07 81.28 0)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
-			(justify right bottom)
+			(justify left bottom)
 		)
 		(uuid "ea7067c9-0c10-431a-a9e0-bf47cc03b817")
 	)
