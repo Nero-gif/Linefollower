@@ -3662,6 +3662,17 @@
 				(xyz -0 -0 -90)
 			)
 		)
+		(model "${KICAD9_3DMODEL_DIR}/Linefollower.3dshapes/Teensy 4.1 (With Headers).step"
+			(offset
+				(xyz 0 0 12)
+			)
+			(scale
+				(xyz 1 1 1)
+			)
+			(rotate
+				(xyz -0 -0 -0)
+			)
+		)
 	)
 	(footprint "Resistor_THT:R_Axial_DIN0204_L3.6mm_D1.6mm_P7.62mm_Horizontal"
 		(layer "F.Cu")
@@ -5985,7 +5996,7 @@
 		(descr "Through hole straight socket strip, 1x05, 2.54mm pitch, single row (from Kicad 4.0.7), script generated")
 		(tags "Through hole socket strip THT 1x05 2.54mm single row")
 		(property "Reference" "J5"
-			(at 0 -2.77 0)
+			(at 0 12.58 0)
 			(layer "F.SilkS")
 			(uuid "e90d3d2d-07d5-4a91-ba07-47feea211455")
 			(effects
@@ -6271,7 +6282,7 @@
 		(descr "Through hole straight socket strip, 1x05, 2.54mm pitch, single row (from Kicad 4.0.7), script generated")
 		(tags "Through hole socket strip THT 1x05 2.54mm single row")
 		(property "Reference" "J6"
-			(at 0 -2.77 0)
+			(at 0 12.58 0)
 			(layer "F.SilkS")
 			(uuid "9b7fd722-6bd3-4f4b-b3fc-28d73a2eeb0c")
 			(effects
@@ -10581,13 +10592,13 @@
 		(embedded_fonts no)
 		(model "${KICAD9_3DMODEL_DIR}/LED_THT.3dshapes/LED_D5.0mm.step"
 			(offset
-				(xyz 0 0 0)
+				(xyz 0 0 -3)
 			)
 			(scale
 				(xyz 1 1 1)
 			)
 			(rotate
-				(xyz 0 0 0)
+				(xyz -0 -0 -0)
 			)
 		)
 	)
@@ -10939,7 +10950,7 @@
 		(descr "Through hole straight socket strip, 1x01, 2.54mm pitch, single row (from Kicad 4.0.7), script generated")
 		(tags "Through hole socket strip THT 1x01 2.54mm single row")
 		(property "Reference" "J8"
-			(at -0.15 -1.27 0)
+			(at -0.15 -2.44 0)
 			(layer "F.SilkS")
 			(uuid "54012938-5059-4f5c-b9c7-6d654c9eb418")
 			(effects
@@ -13532,6 +13543,14 @@
 		(uuid "f53d6092-50a3-4bbf-a392-804e2f84b423")
 	)
 	(segment
+		(start 89.8 132.7)
+		(end 89.8 135.24)
+		(width 0.4)
+		(layer "F.Cu")
+		(net 15)
+		(uuid "3d940267-6092-4387-9710-2cf369539d42")
+	)
+	(segment
 		(start 64.465 130)
 		(end 87.1 130)
 		(width 0.4)
@@ -14607,9 +14626,9 @@
 				(xy 90.955047 135.94782) (xy 90.955051 135.947816) (xy 91.051557 135.758412) (xy 91.117246 135.556243)
 				(xy 91.1505 135.346287) (xy 91.1505 135.133713) (xy 91.117246 134.923757) (xy 91.051557 134.721588)
 				(xy 90.955051 134.532184) (xy 90.955049 134.532181) (xy 90.955048 134.532179) (xy 90.830109 134.360213)
-				(xy 90.679786 134.20989) (xy 90.50782 134.084951) (xy 90.507115 134.084591) (xy 90.499054 134.080485)
-				(xy 90.448259 134.032512) (xy 90.431463 133.964692) (xy 90.453999 133.898556) (xy 90.499054 133.859515)
-				(xy 90.507816 133.855051) (xy 90.529789 133.839086) (xy 90.679786 133.730109) (xy 90.679788 133.730106)
+				(xy 90.679786 134.20989) (xy 90.551615 134.11677) (xy 90.548274 134.112438) (xy 90.543297 134.110165)
+				(xy 90.527166 134.085065) (xy 90.508949 134.061441) (xy 90.507695 134.054767) (xy 90.505523 134.051387)
+				(xy 90.5005 134.016452) (xy 90.5005 133.923547) (xy 90.520185 133.856508) (xy 90.551614 133.82323)
 				(xy 90.679792 133.730104) (xy 90.830104 133.579792) (xy 90.830106 133.579788) (xy 90.830109 133.579786)
 				(xy 90.955048 133.40782) (xy 90.955047 133.40782) (xy 90.955051 133.407816) (xy 91.051557 133.218412)
 				(xy 91.117246 133.016243) (xy 91.1505 132.806287) (xy 91.1505 132.593713) (xy 91.117246 132.383757)
