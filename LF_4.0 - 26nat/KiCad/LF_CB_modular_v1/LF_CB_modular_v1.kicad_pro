@@ -567,7 +567,7 @@
       "plot": "./Gerber",
       "pos_files": "",
       "specctra_dsn": "",
-      "step": "",
+      "step": "../../../../../../../media/nero/D63AF09D3AF07C35/Users/Nero/3D Objects/LF_CB_modular_v1.step",
       "svg": "",
       "vrml": ""
     },
@@ -705,7 +705,7 @@
     },
     "net_format_name": "",
     "page_layout_descr_file": "",
-    "plot_directory": "",
+    "plot_directory": "../../../../../Dokumenty/",
     "space_save_all_events": true,
     "spice_current_sheet_as_root": false,
     "spice_external_command": "spice \"%I\"",
