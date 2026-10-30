@@ -9,31 +9,31 @@
 ---
 
 ## 1. Úvod a cíle projektu
-Projekt "Linefollower 4.0 2026" byl vyvinut jako soutěžní robot pro autonomní sledování černé čáry na světlém podkladu v rámci soutěže ROBO2026. Hlavním cílem byla konstrukce robota s vysokou dynamikou a precizním řízením, čehož bylo dosaženo kombinací výkonného mikrokontroléru Teensy 4.1 a lehkého 3D tištěného šasi vlastního designu.
+Projekt "Linefollower 4.0 2026" byl vyvinut jako soutěžní robot pro autonomní sledování černé čáry na světlém podkladu v rámci soutěže ROBO2026 jejíž unikátem je podmínka aby každý robot vezl a nevylil kelímek s vodou. Hlavním cílem byla konstrukce robota s vysokou dynamikou a precizním řízením, čehož bylo dosaženo kombinací výkonného mikrokontroléru Teensy 4.1 a lehkého 3D tištěného šasi vlastního designu.
 
 ## 2. Mechanická konstrukce
-Konstrukce robota se zaměřuje na nízké těžiště a tuhost, což je klíčové pro stabilitu v zatáčkách při vysokých rychlostech.
+Konstrukce robota se zaměřuje na nízké těžiště, tuhost a nízko umístěné posazení kelímku s vodou, což je klíčové pro stabilitu v zatáčkách při vysokých rychlostech a schopnost udržet kelímek s vodou stabilní.
 * **Návrh:** Šasi bylo kompletně navrženo v CAD prostředí **Autodesk Fusion 360**.
-* **Výroba:** Hlavní díly jsou vyrobeny 3D tiskem z materiálu PLA pro snadný a levný tisk. Při tisku byly použity podpěry z PETG pro snadné odstranění.
-* **Povrchová úprava:** Pro dosažení vysokého estetického standardu byl povrch ošetřen metalickým sprejem, což robotovi dodává profesionální vzhled a odlišuje jej od běžných prototypů.
-* **Pohon:** Robot využívá dva převodové motory řady Pololu 25D s integrovanými magnetickými enkodéry pro odhad ujeté vzdálenosti a sektorové řízení jízdy.
+* **Výroba:** Hlavní díly jsou vyrobeny 3D tiskem z materiálu PLA pro snadný a levný tisk.
+* **Pohon:** Robot využívá dva převodové motory řady N20 <!-- TODO: doplnit použité mototy včetně převodů -->
 
-* **Celková hmotnost:** 600 g.  
-* **Rozvor kol:** _______ 
-* **Průměr kol:** _______
+* **Celková hmotnost:** 
+* **Rozvor kol:**
+* **Průměr kol:**
 
-[//]: # (* TODO: doplnit hodnoty rozvoru a průměru kol)
+[//]: # (* TODO: doplnit hodnoty)
 
 ## 3. Hardware a elektronika
 Elektronický systém je postaven na vlastnoručně navrženém a osazeném DPS v programu KiCad, s důrazem na čistotu signálů a efektivní napájení.
 
 ### Klíčové komponenty:
 * **Řídicí jednotka:** Teensy 4.1 (ARM Cortex-M7, 600 MHz). Zvolena pro nadstandardní výpočetní výkon umožňující vysokou vzorkovací frekvenci PID smyčky.
-* **Motorové budiče:** 2× breakout board s čipy DRV8871 (U2, U4). Disponují integrovanou proudovou ochranou a jsou řízeny PWM signálem o frekvenci 1 kHz. Vstupní napájecí větev každého budiče je blokována elektrolytickým kondenzátorem C1, resp. C2 (100 µF / 25 V), které potlačují napěťové špičky vznikající při komutaci motorů.
-* **Senzorové pole:** 8 infračervených senzorů QTR-8RC, optimalizovaných pro rychlou odezvu na změnu kontrastu. Lišta senzorů je připojena kabelem IDC na konektor J4.
-* **Stavová RGB LED:** Součástka D2 (LED_RKGB, 5 mm, 4 vývody) vizuálně indikuje stav robota. Každá ze tří barevných větví je chráněna předřadným rezistorem R1, R2, R3 (100 Ω), který omezuje proud na přibližně 30 mA při 5 V.
-* **Napájení:** 3S LiPo akumulátor (11,1 V jmenovitě, plně nabitý 12,6 V, kritická mez 9,9 V = 3,3 V/článek). Připojen přes konektor XT60 (J1). Celé napájení spíná výkonový N-kanálový MOSFET IRLZ44N (Q1, 47 A / 55 V), jehož gate je řízena přes ochranný rezistor R5 (1 kΩ) z ovládacího spínače. Toto řešení umožňuje bezpečné odpojení celého silového okruhu bez mechanického přerušení kabeláže.
-* **Stabilizace napětí:** Spínaný regulátor TSR 1-2450 (U3) zajišťuje stabilních 5 V pro logické obvody s účinností až 94 %. Na jeho výstupní větvi jsou umístěny blokovací kondenzátory C3 a C4 (100 nF keramické), které potlačují vysokofrekvenční rušení.
+* **Motorový budič:** <!-- TODO: doplnit -->
+* **Senzorové pole:** 16 infračervených senzorů QTR-MD-16RC, optimalizovaných pro rychlou odezvu na změnu kontrastu. Lišta senzorů je připojena kabelem IDC na konektor J1.
+* **Napájení:** 2x 18650 ( = 2s Li-Po, nominální napětí 7.4V, minimální napětí 6V, maximální napětí 8.4. Připojen přes konektory XT60. Celé napájení spíná výkonový P-kanálový MOSFET IRF4905 (Q1), jehož gate je řízena přes ochranný rezistor R1 (10 kΩ) z ovládacího spínače. Toto řešení umožňuje bezpečné odpojení celého silového okruhu bez mechanického přerušení kabeláže.
+* **Stabilizace napětí:** 
+  * Spínaný regulátor TSR 1-2450 (U2) zajišťuje stabilních 5 V pro Teensy 4.1 s účinností až 94 %.
+  * Logické obvody jsou napájeny samostanou napájecí větví s regulovaným napětím 3.3 V pomocí TSR 1-2433, nikoliv mikrokontrolerem Teensy 4.1 z důvodu předpokládaného odběru vyššího než je udávané maximum vývodu Teensy. 
 
 ### Zapojení pinů (Teensy 4.1):
 | Funkce | Pin | Směr | Popis |
@@ -55,6 +55,7 @@ Elektronický systém je postaven na vlastnoručně navrženém a osazeném DPS 
 | **Motor R - PWM** | D28 | OUT | Rychlost pravého motoru (PWM, 1 kHz, 16 bitů) |
 | **Motor R - DIR** | D29 | OUT | Směr pravého motoru |
 
+[//]: # (TODO: předělat tabulku )
 ## 4. Algoritmus řízení
 Software implementuje digitální **PID regulátor**, který vypočítává korekci směru na základě váženého průměru hodnot ze senzorového pole.
 
@@ -64,12 +65,13 @@ Software implementuje digitální **PID regulátor**, který vypočítává kore
 * **D (Derivační složka):** $K_d = ____________$ – predikuje budoucí chybu a tlumí překmity při rychlých změnách směru.
 
 Robot pracuje s normalizovanou pozicí čáry v rozsahu 0 až 3000. Základní rychlost pohybu (`BASE_SPEED`) je nastavena na hodnotu 30 000 pro dosažení optimálního poměru mezi stabilitou a časem průjezdu.
-Pro optimalizaci plynulosti jízdy byla dráha rozdělena na pomyslné sektory. Robot se podle počtu naměřených otáček orientuje, ve kterém sektoru se právě nachází, a v každém sektoru využívá optimalizovanou rychlost a citlivost pro daný úsek.
+
+Napájecí větev pro motory robota nenmá pevně regulované napětí. Konstrukčním napětím motorů je **6 V**, proto je na základě naměřené hodnoty napěťového děliče upravováno PWM. 
 
 ## 5. Bezpečnost a údržba
 Vzhledem k použití LiPo akumulátorů jsou dodržovány tyto bezpečnostní zásady:
 * Nabíjení probíhá výhradně v protipožárním vaku (LiPo Safe Bag).
-* Napětí akumulátoru je monitorováno odporovým děličem na analogovém vstupu Teensy 4.1. Kritická spodní mez je **9,9 V** (3,3 V/článek) - pod touto hodnotou hrozí nevratné poškození článků. Plně nabitý akumulátor má napětí 12,6 V.
+* Napětí akumulátoru je monitorováno odporovým děličem na analogovém vstupu Teensy 4.1. Kritická spodní mez je **6.0 V** (3 V/článek) - pod touto hodnotou hrozí nevratné poškození článků. Plně nabitý akumulátor má napětí 8.4 V.
 * Mechanické spoje a stav kabeláže jsou kontrolovány před každou jízdou.
 
 ## 6. Seznam součástek (BOM)
@@ -87,9 +89,11 @@ Vzhledem k použití LiPo akumulátorů jsou dodržovány tyto bezpečnostní z�
 | **R5** | 1 kΩ | 1 ks | Ochranný rezistor gate MOSFETu Q1 |
 | **Q1** | IRLZ44N | 1 ks | N-MOSFET, hlavní spínač napájení (47 A / 55 V) |
 
+[//]: # (TODO: aktuaizovat)
 ---
 
 ## 7. Přílohy
 * **Příloha A:** Technický výkres šasi
 * **Příloha B:** Schéma zapojení
 * **Příloha C:** Kompletní zdrojový kód
+
