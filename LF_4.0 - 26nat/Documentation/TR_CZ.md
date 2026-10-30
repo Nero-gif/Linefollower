@@ -15,7 +15,9 @@ Projekt "Linefollower 4.0 2026" byl vyvinut jako soutěžní robot pro autonomn�
 Konstrukce robota se zaměřuje na nízké těžiště, tuhost a nízko umístěné posazení kelímku s vodou, což je klíčové pro stabilitu v zatáčkách při vysokých rychlostech a schopnost udržet kelímek s vodou stabilní.
 * **Návrh:** Šasi bylo kompletně navrženo v CAD prostředí **Autodesk Fusion 360**.
 * **Výroba:** Hlavní díly jsou vyrobeny 3D tiskem z materiálu PLA pro snadný a levný tisk.
-* **Pohon:** Robot využívá dva převodové motory řady N20 <!-- TODO: doplnit použité mototy včetně převodů -->
+* **Pohon:** Robot využívá dva převodové motory řady N20
+
+[//]: # (* TODO: doplnit použité mototy včetně převodů)
 
 * **Celková hmotnost:** 
 * **Rozvor kol:**
@@ -28,7 +30,9 @@ Elektronický systém je postaven na vlastnoručně navrženém a osazeném DPS 
 
 ### Klíčové komponenty:
 * **Řídicí jednotka:** Teensy 4.1 (ARM Cortex-M7, 600 MHz). Zvolena pro nadstandardní výpočetní výkon umožňující vysokou vzorkovací frekvenci PID smyčky.
-* **Motorový budič:** <!-- TODO: doplnit -->
+* **Motorový budič:** 
+
+[//]: # (* TODO: doplnit budič)
 * **Senzorové pole:** 16 infračervených senzorů QTR-MD-16RC, optimalizovaných pro rychlou odezvu na změnu kontrastu. Lišta senzorů je připojena kabelem IDC na konektor J1.
 * **Napájení:** 2x 18650 ( = 2s Li-Po, nominální napětí 7.4V, minimální napětí 6V, maximální napětí 8.4. Připojen přes konektory XT60. Celé napájení spíná výkonový P-kanálový MOSFET IRF4905 (Q1), jehož gate je řízena přes ochranný rezistor R1 (10 kΩ) z ovládacího spínače. Toto řešení umožňuje bezpečné odpojení celého silového okruhu bez mechanického přerušení kabeláže.
 * **Stabilizace napětí:** 
