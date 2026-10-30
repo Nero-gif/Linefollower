@@ -42,24 +42,42 @@ Elektronický systém je postaven na vlastnoručně navrženém a osazeném DPS 
 ### Zapojení pinů (Teensy 4.1):
 | Funkce | Pin | Směr | Popis |
 | :--- | :--- | :--- | :--- |
-| **Enkodér** | D1 | IN | Vstup z magnetického enkodéru (přerušení IRQ_RISING) |
-| **Motor L - PWM** | D3 | OUT | Rychlost levého motoru (PWM, 1 kHz, 16 bitů) |
-| **Motor L - DIR** | D4 | OUT | Směr levého motoru |
-| **Senzor čáry 1** | D5 | IN/OUT | QTR-8RC - krajní levý senzor |
-| **Senzor čáry 2** | D6 | IN/OUT | QTR-8RC |
-| **Senzor čáry 3** | D7 | IN/OUT | QTR-8RC |
-| **Senzor čáry 4** | D8 | IN/OUT | QTR-8RC |
-| **Senzor čáry 5** | D9 | IN/OUT | QTR-8RC |
-| **Senzor čáry 6** | D10 | IN/OUT | QTR-8RC |
-| **Senzor čáry 7** | D11 | IN/OUT | QTR-8RC |
-| **Senzor čáry 8** | D12 | IN/OUT | QTR-8RC - krajní pravý senzor |
-| **LED RGB - B** | D13 | OUT | Stavová LED (modrá) |
-| **LED RGB - R** | D14 | OUT | Stavová LED (červená) |
-| **LED RGB - G** | D15 | OUT | Stavová LED (zelená) |
-| **Motor R - PWM** | D28 | OUT | Rychlost pravého motoru (PWM, 1 kHz, 16 bitů) |
-| **Motor R - DIR** | D29 | OUT | Směr pravého motoru |
+| **Rozšíření** | D0 | - | Volný vývod vyvedený na konektor J8 |
+| **Motor A - PWM** | D1 | OUT | TB6612FNG PWMA (J3) - rychlost motoru A |
+| **Motor A - IN2** | D2 | OUT | TB6612FNG AIN2 (J3) - směr motoru A |
+| **Motor A - IN1** | D3 | OUT | TB6612FNG AIN1 (J3) - směr motoru A |
+| **Budič - STBY** | D4 | OUT | TB6612FNG STBY (J3) - povolení budiče |
+| **Motor B - IN1** | D5 | OUT | TB6612FNG BIN1 (J3) - směr motoru B |
+| **Motor B - IN2** | D6 | OUT | TB6612FNG BIN2 (J3) - směr motoru B |
+| **Motor B - PWM** | D7 | OUT | TB6612FNG PWMB (J3) - rychlost motoru B |
+| **Rozšíření** | D8, D9 | - | Volné vývody vyvedené na konektor J10 |
+| **Kamera - CS** | D10 | OUT | Arducam MEGA 3 Mpx (J2) - SPI CS |
+| **Kamera - MOSI** | D11 | OUT | Arducam MEGA 3 Mpx (J2) - SPI MOSI |
+| **Kamera - MISO** | D12 | IN | Arducam MEGA 3 Mpx (J2) - SPI MISO |
+| **Kamera - SCK** | D13 | OUT | Arducam MEGA 3 Mpx (J2) - SPI SCK (sdílený s LED na desce Teensy) |
+| **Rozšíření** | D14 – D23 | - | Volné vývody vyvedené na konektor J11 (pin 1 = D23 … pin 10 = D14) |
+| **Rozšíření** | D24 | - | Volný vývod vyvedený na konektor J9 |
+| **Senzor čáry 10** | D25 | IN/OUT | QTR-MD-16RC (J1) - RC10 |
+| **Senzor čáry 12** | D26 | IN/OUT | QTR-MD-16RC (J1) - RC12 |
+| **Senzor čáry 14** | D27 | IN/OUT | QTR-MD-16RC (J1) - RC14 |
+| **Senzor čáry 16** | D28 | IN/OUT | QTR-MD-16RC (J1) - RC16 |
+| **Senzor čáry 15** | D29 | IN/OUT | QTR-MD-16RC (J1) - RC15 |
+| **Senzor čáry 13** | D30 | IN/OUT | QTR-MD-16RC (J1) - RC13 |
+| **Senzor čáry 11** | D31 | IN/OUT | QTR-MD-16RC (J1) - RC11 |
+| **Senzor čáry 9** | D32 | IN/OUT | QTR-MD-16RC (J1) - RC09 |
+| **Senzor čáry 7** | D33 | IN/OUT | QTR-MD-16RC (J1) - RC07 |
+| **Senzor čáry 5** | D34 | IN/OUT | QTR-MD-16RC (J1) - RC05 |
+| **Senzor čáry 3** | D35 | IN/OUT | QTR-MD-16RC (J1) - RC03 |
+| **Senzor čáry 1** | D36 | IN/OUT | QTR-MD-16RC (J1) - RC01 |
+| **Senzor čáry 2** | D37 | IN/OUT | QTR-MD-16RC (J1) - RC02 |
+| **Senzor čáry 4** | D38 | IN/OUT | QTR-MD-16RC (J1) - RC04 |
+| **Senzor čáry 6** | D39 | IN/OUT | QTR-MD-16RC (J1) - RC06 |
+| **Senzor čáry 8** | D40 | IN/OUT | QTR-MD-16RC (J1) - RC08 |
+| **Napětí baterie** | D41 / A17 | IN (analog) | BATT_SENSE - odporový dělič R3 (33 kΩ) / R4 (10 kΩ), filtrace C3 |
+| **Napájení** | VIN | IN | 5 V z regulátoru U2 |
+| **Zem** | GND | - | Společná zem |
 
-[//]: # (TODO: předělat tabulku )
+[//]: # (TODO: doplnit minimálně odd/even konektory)
 ## 4. Algoritmus řízení
 Software implementuje digitální **PID regulátor**, který vypočítává korekci směru na základě váženého průměru hodnot ze senzorového pole.
 
@@ -82,18 +100,31 @@ Vzhledem k použití LiPo akumulátorů jsou dodržovány tyto bezpečnostní z�
 | Označení | Komponenta | Množství | Poznámka |
 | :--- | :--- | :--- | :--- |
 | **U1** | Teensy 4.1 | 1 ks | Řídicí mikrokontrolér |
-| **U2, U4** | DRV8871 Breakout | 2 ks | H-můstek pro motory |
-| **U3** | TSR 1-2450 | 1 ks | DC/DC měnič (5 V) |
-| **J1** | XT60-M | 1 ks | Napájecí konektor |
-| **J4** | IDC-Header 2x12 | 1 ks | Konektor pro senzorovou lištu QTR-8RC |
-| **D2** | LED_RKGB (5 mm) | 1 ks | Stavová RGB LED |
-| **C1, C2** | 100 µF / 25 V | 2 ks | Elektrolytické filtry napájení motorových budičů |
-| **C3, C4** | 100 nF | 2 ks | Keramické blokovací kondenzátory regulátoru TSR |
-| **R1-R3** | 100 Ω | 3 ks | Předřadné rezistory RGB LED (D2) |
-| **R5** | 1 kΩ | 1 ks | Ochranný rezistor gate MOSFETu Q1 |
-| **Q1** | IRLZ44N | 1 ks | N-MOSFET, hlavní spínač napájení (47 A / 55 V) |
-
-[//]: # (TODO: aktuaizovat)
+| **U2** | TRACO TSR 1-2450 | 1 ks | DC/DC měnič 5 V pro Teensy (VIN) |
+| **U3** | TRACO TSR 1-2433 | 1 ks | DC/DC měnič 3.3 V pro logiku (senzory, kamera, logika budiče) |
+| **Q1** | IRF4905 (TO-220) | 1 ks | P-MOSFET, hlavní spínač napájení |
+| **J1** | IDC-Header 2x12 | 1 ks | Konektor senzorové lišty QTR-MD-16RC |
+| **J2** | JST XH 1x06 | 1 ks | Konektor kamery Arducam MEGA 3 Mpx (SPI) |
+| **J3** | Pin header pro TB6612FNG | 1 ks | Patice modulu motorového budiče TB6612FNG |
+| **J4** | Pin socket 1x02 | 1 ks | Propojka řízení emitorů ODD/EVN senzorové lišty |
+| **J5, J6** | Pin socket 1x05 | 2 ks | Rozšiřující lišty GND |
+| **J8, J9** | Pin socket 1x01 | 2 ks | Rozšiřující vývody Teensy (D0, D24) |
+| **J10** | Pin socket 1x02 | 1 ks | Rozšiřující vývody Teensy (D8, D9) |
+| **J11** | Pin socket 1x10 | 1 ks | Rozšiřující vývody Teensy (D14 – D23) |
+| **M1, M2** | JST XH 1x02 | 2 ks | Konektory DC motorů (výstupy A a B budiče) |
+| **SW1** | JST XH 1x02 | 1 ks | Konektor hlavního vypínače (ovládá gate Q1) |
+| **BT2** | Pájecí body pro vodič 2 mm² | 1 ks | Připojení akumulátoru 2S |
+| **D1** | LED 5 mm | 1 ks | Indikace zapnutého napájení (větev 6V) |
+| **C1** | 1 µF | 1 ks | Keramický kondenzátor napájecí větve 6V |
+| **C2** | 47 µF (elektrolytický) | 1 ks | Výstupní kondenzátor regulátoru U2 (5 V) |
+| **C3** | 100 nF | 1 ks | Filtrace měření napětí baterie (BATT_SENSE) |
+| **C4** | 100 nF | 1 ks | Blokovací kondenzátor napájecí větve 6V |
+| **C5** | 100 nF | 1 ks | Blokovací kondenzátor větve 5 V |
+| **C6** | 47 µF (elektrolytický) | 1 ks | Filtrační kondenzátor napájecí větve 6V |
+| **R1** | 10 kΩ | 1 ks | Pull-up gate MOSFETu Q1 (udržuje Q1 vypnutý) |
+| **R2** | 1 kΩ | 1 ks | Předřadný rezistor LED D1 |
+| **R3** | 33 kΩ | 1 ks | Horní rezistor děliče napětí baterie |
+| **R4** | 10 kΩ | 1 ks | Dolní rezistor děliče napětí baterie |
 ---
 
 ## 7. Přílohy
