@@ -1,4 +1,4 @@
-# Technická dokumentace: Linefollower 3.0 2026 
+# Technická dokumentace: Linefollower 4.0 2026 
 
 **Tým:** Jakub Lukšík & Matěj Dvořák  
 **Škola:** Střední škola informatiky a finančních služeb (INFIS)  
@@ -31,10 +31,10 @@ Elektronický systém je postaven na vlastnoručně navrženém a osazeném DPS 
 * **Motorový budič:** Laskakit Dvoumotorový řadič TB6612FNG
 
 * **Senzorové pole:** 16 infračervených senzorů QTR-MD-16RC, optimalizovaných pro rychlou odezvu na změnu kontrastu. Lišta senzorů je připojena kabelem IDC na konektor J1.
-* **Napájení:** 2x 18650 ( = 2s Li-Po, nominální napětí 7.4V, minimální napětí 6V, maximální napětí 8.4. Připojen přes konektory XT60. Celé napájení spíná výkonový P-kanálový MOSFET IRF4905 (Q1), jehož gate je řízena přes ochranný rezistor R1 (10 kΩ) z ovládacího spínače. Toto řešení umožňuje bezpečné odpojení celého silového okruhu bez mechanického přerušení kabeláže.
+* **Napájení:** 2x 18650 (= 2S Li-ion, nominální napětí 7.4 V, minimální napětí 6 V, maximální napětí 8.4 V). Připojen přes konektory XT60. Celé napájení spíná výkonový P-kanálový MOSFET IRF4905 (Q1). Rezistor R1 (10 kΩ) mezi gate a source drží Q1 vypnutý; ovládací spínač SW1 při zapnutí připojí gate přímo na GND, čímž Q1 sepne. Toto řešení umožňuje bezpečné odpojení celého silového okruhu bez mechanického přerušení kabeláže.
 * **Stabilizace napětí:** 
-  * Stabilizátor napětí LM2940CT5.0 (U2) zajišťuje stabilních 5 V pro Teensy 4.1 s účinností až 94 %.
-  * Logické obvody jsou napájeny samostanou napájecí větví s regulovaným napětím 3.3 V pomocí TSR 1-2433, nikoliv mikrokontrolerem Teensy 4.1 z důvodu předpokládaného odběru vyššího než je udávané maximum vývodu Teensy. 
+  * Lineární stabilizátor napětí s nízkým úbytkem LM2940CT-5.0 (U2) zajišťuje stabilních 5 V pro Teensy 4.1.
+  * Logické obvody jsou napájeny samostatnou napájecí větví s regulovaným napětím 3.3 V pomocí DC/DC měniče TRACO TSR 1-2433 (U3), nikoliv mikrokontrolerem Teensy 4.1 z důvodu předpokládaného odběru vyššího než je udávané maximum vývodu Teensy. 
 
 ### Zapojení pinů (Teensy 4.1):
 | Funkce | Pin | Směr | Popis |
@@ -48,11 +48,11 @@ Elektronický systém je postaven na vlastnoručně navrženém a osazeném DPS 
 | **Motor B - IN2** | D6 | OUT | TB6612FNG BIN2 (J3) - směr motoru B |
 | **Motor B - PWM** | D7 | OUT | TB6612FNG PWMB (J3) - rychlost motoru B |
 | **Rozšíření** | D8, D9 | - | Volné vývody vyvedené na konektor J10 |
-| **Kamera - CS** | D10 | OUT | Arducam MEGA 3 Mpx (J2) - SPI CS |
+| **Kamera - CS** | D10 | OUT | Arducam MEGA 3 Mpx (J2) - SPI CS (pin CE) |
 | **Kamera - MOSI** | D11 | OUT | Arducam MEGA 3 Mpx (J2) - SPI MOSI |
 | **Kamera - MISO** | D12 | IN | Arducam MEGA 3 Mpx (J2) - SPI MISO |
 | **Kamera - SCK** | D13 | OUT | Arducam MEGA 3 Mpx (J2) - SPI SCK (sdílený s LED na desce Teensy) |
-| **Rozšíření** | D14 – D23 | - | Volné vývody vyvedené na konektor J11 (pin 1 = D23 … pin 10 = D14) |
+| **Rozšíření** | D16 – D20 | - | Volné vývody vyvedené na konektor J11 (pin 4 = D20 … pin 8 = D16); D14, D15 a D21 – D23 jsou na J11 také vyvedeny, ale jsou využity (viz níže) |
 | **Rozšíření** | D24 | - | Volný vývod vyvedený na konektor J9 |
 | **Senzor čáry 10** | D25 | IN/OUT | QTR-MD-16RC (J1) - RC10 |
 | **Senzor čáry 12** | D26 | IN/OUT | QTR-MD-16RC (J1) - RC12 |
@@ -70,11 +70,11 @@ Elektronický systém je postaven na vlastnoručně navrženém a osazeném DPS 
 | **Senzor čáry 4** | D38 | IN/OUT | QTR-MD-16RC (J1) - RC04 |
 | **Senzor čáry 6** | D39 | IN/OUT | QTR-MD-16RC (J1) - RC06 |
 | **Senzor čáry 8** | D40 | IN/OUT | QTR-MD-16RC (J1) - RC08 |
-|**Spínání sudých senzorů**| D14 | OUT | QTR-MD-16RC (J1) - even |
-|**Spínání lichých senzorů**| D15 | OUT | QTR-MD-16RC (J1) - odd |
-| **RGB LED - červená** | D21 | OUT | RGB LED - R |
-| **RGB LED - zelená** | D22 | OUT | RGB LED - G |
-| **RGB LED - modrá** | D23 | OUT | RGB LED - B |
+|**Spínání sudých senzorů**| D14 | OUT | QTR-MD-16RC (J1) - EVN, externí propojka J11.10 → J4.2 |
+|**Spínání lichých senzorů**| D15 | OUT | QTR-MD-16RC (J1) - ODD, externí propojka J11.9 → J4.1 |
+| **RGB LED - červená** | D21 | OUT | D2 (RA) přes R5 330 Ω, mimo DPS, připojeno na J11.3 |
+| **RGB LED - zelená** | D22 | OUT | D2 (GA) přes R7 200 Ω, mimo DPS, připojeno na J11.2 |
+| **RGB LED - modrá** | D23 | OUT | D2 (BA) přes R6 200 Ω, mimo DPS, připojeno na J11.1 |
 | **Napětí baterie** | D41 / A17 | IN (analog) | BATT_SENSE - odporový dělič R3 (33 kΩ) / R4 (10 kΩ), filtrace C3 |
 | **Napájení** | VIN | IN | 5 V z regulátoru U2 |
 | **Zem** | GND | - | Společná zem |
@@ -89,10 +89,10 @@ Software implementuje digitální **PID regulátor**, který vypočítává kore
 
 Robot pracuje s normalizovanou pozicí čáry v rozsahu 0 až 3000. Základní rychlost pohybu (`BASE_SPEED`) je nastavena na hodnotu 30 000 pro dosažení optimálního poměru mezi stabilitou a časem průjezdu.
 
-Napájecí větev pro motory robota nenmá pevně regulované napětí. Konstrukčním napětím motorů je **6 V**, proto je na základě naměřené hodnoty napěťového děliče upravováno PWM. 
+Napájecí větev pro motory robota nemá pevně regulované napětí. Konstrukčním napětím motorů je **6 V**, proto je na základě naměřené hodnoty napěťového děliče upravováno PWM. 
 
 ## 5. Bezpečnost a údržba
-Vzhledem k použití LiPo akumulátorů jsou dodržovány tyto bezpečnostní zásady:
+Vzhledem k použití Li-ion akumulátorů jsou dodržovány tyto bezpečnostní zásady:
 * Nabíjení probíhá výhradně v protipožárním vaku (LiPo Safe Bag).
 * Napětí akumulátoru je monitorováno odporovým děličem na analogovém vstupu Teensy 4.1. Kritická spodní mez je **6.0 V** (3 V/článek) - pod touto hodnotou hrozí nevratné poškození článků. Plně nabitý akumulátor má napětí 8.4 V.
 * Mechanické spoje a stav kabeláže jsou kontrolovány před každou jízdou.
@@ -101,13 +101,14 @@ Vzhledem k použití LiPo akumulátorů jsou dodržovány tyto bezpečnostní z�
 | Označení | Komponenta | Množství | Poznámka |
 | :--- | :--- | :--- | :--- |
 | **U1** | Teensy 4.1 | 1 ks | Řídicí mikrokontrolér |
-| **U2** | TRACO TSR 1-2450 | 1 ks | DC/DC měnič 5 V pro Teensy (VIN) |
+| **U2** | LM2940CT-5.0 (TO-220) | 1 ks | Lineární stabilizátor (LDO) 5 V pro Teensy (VIN) |
 | **U3** | TRACO TSR 1-2433 | 1 ks | DC/DC měnič 3.3 V pro logiku (senzory, kamera, logika budiče) |
 | **Q1** | IRF4905 (TO-220) | 1 ks | P-MOSFET, hlavní spínač napájení |
+| **HS1** | Chladič HS-123-25 (TO-220) | 1 ks | Chladič pouzdra TO-220 |
 | **J1** | IDC-Header 2x12 | 1 ks | Konektor senzorové lišty QTR-MD-16RC |
 | **J2** | JST XH 1x06 | 1 ks | Konektor kamery Arducam MEGA 3 Mpx (SPI) |
 | **J3** | Pin header pro TB6612FNG | 1 ks | Patice modulu motorového budiče TB6612FNG |
-| **J4** | Pin socket 1x02 | 1 ks | Propojka řízení emitorů ODD/EVN senzorové lišty |
+| **J4** | Pin socket 1x02 | 1 ks | Vstup řízení emitorů ODD/EVN senzorové lišty (propojení z J11.9/J11.10) |
 | **J5, J6** | Pin socket 1x05 | 2 ks | Rozšiřující lišty GND |
 | **J8, J9** | Pin socket 1x01 | 2 ks | Rozšiřující vývody Teensy (D0, D24) |
 | **J10** | Pin socket 1x02 | 1 ks | Rozšiřující vývody Teensy (D8, D9) |
@@ -116,7 +117,7 @@ Vzhledem k použití LiPo akumulátorů jsou dodržovány tyto bezpečnostní z�
 | **SW1** | JST XH 1x02 | 1 ks | Konektor hlavního vypínače (ovládá gate Q1) |
 | **BT2** | Pájecí body pro vodič 2 mm² | 1 ks | Připojení akumulátoru 2S |
 | **D1** | LED 5 mm | 1 ks | Indikace zapnutého napájení (větev 6V) |
-| **D2** | LED RGB | 1 ks | Indikace stavu kódu |
+| **D2** | LED RGB, společná katoda | 1 ks | Indikace stavu kódu, mimo DPS, připojena na J11 |
 | **C1** | 1 µF | 1 ks | Keramický kondenzátor napájecí větve 6V |
 | **C2** | 47 µF (elektrolytický) | 1 ks | Výstupní kondenzátor regulátoru U2 (5 V) |
 | **C3** | 100 nF | 1 ks | Filtrace měření napětí baterie (BATT_SENSE) |
@@ -127,9 +128,9 @@ Vzhledem k použití LiPo akumulátorů jsou dodržovány tyto bezpečnostní z�
 | **R2** | 1 kΩ | 1 ks | Předřadný rezistor LED D1 |
 | **R3** | 33 kΩ | 1 ks | Horní rezistor děliče napětí baterie |
 | **R4** | 10 kΩ | 1 ks | Dolní rezistor děliče napětí baterie |
-| **R5** | 330 Ω | 1 ks | Ochranný resistor RGB LED |
-| **R6** | 200 Ω | 1 ks | Ochranný resistor RGB LED |
-| **R7** | 200 Ω | 1 ks | Ochranný resistor RGB LED |
+| **R5** | 330 Ω | 1 ks | Předřadný rezistor RGB LED, červená, mimo DPS |
+| **R6** | 200 Ω | 1 ks | Předřadný rezistor RGB LED, modrá, mimo DPS |
+| **R7** | 200 Ω | 1 ks | Předřadný rezistor RGB LED, zelená, mimo DPS |
 ---
 
 ## 7. Přílohy
