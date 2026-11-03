@@ -49,6 +49,13 @@ const uint8_t PIN_VBAT = 41;
 const float VBAT_DIV = (33.0f + 10.0f) / 10.0f;
 const float VBAT_NOMINAL = 6.0f;      // napětí, pro které ladíš rychlosti
 
+// RGB LED (společná katoda: HIGH = svítí)
+// Mapování podle skutečného pořadí vývodů LED:
+// D22 = červená, D23 = zelená, D21 = modrá.
+const uint8_t PIN_LED_RED = 22;
+const uint8_t PIN_LED_GREEN = 23;
+const uint8_t PIN_LED_BLUE = 21;
+
 // ===================== PARAMETRY JÍZDY =====================
 float Kp = 480.0f;            // [rychlost / jednotku senzoru]
 float Ki = 0.0f;
@@ -165,6 +172,22 @@ static void brakeMotors() {
   digitalWrite(PIN_BIN1, HIGH); digitalWrite(PIN_BIN2, HIGH); analogWrite(PIN_PWMB, 1023);
 }
 
+// ===================== RGB LED =====================
+static void setRgbLed(bool red, bool green, bool blue) {
+  digitalWrite(PIN_LED_RED, red ? HIGH : LOW);
+  digitalWrite(PIN_LED_GREEN, green ? HIGH : LOW);
+  digitalWrite(PIN_LED_BLUE, blue ? HIGH : LOW);
+}
+
+static void redOn()   { setRgbLed(true, false, false); }
+static void redOff()  { digitalWrite(PIN_LED_RED, LOW); }
+static void greenOn()  { setRgbLed(false, true, false); }
+static void greenOff() { digitalWrite(PIN_LED_GREEN, LOW); }
+static void blueOn()  { setRgbLed(false, false, true); }
+static void blueOff() { digitalWrite(PIN_LED_BLUE, LOW); }
+static void cyanOn()  { setRgbLed(false, true, true); }
+static void cyanOff() { digitalWrite(PIN_LED_GREEN, LOW); digitalWrite(PIN_LED_BLUE, LOW); }
+
 // ===================== BATERIE =====================
 static float readBatteryV() {
   analogReadResolution(12);
@@ -255,6 +278,7 @@ static bool loadCal() {
 }
 
 static void calibrate() {
+  blueOn();
   for (uint8_t i = 0; i < N; i++) { calMin[i] = 65535; calMax[i] = 0; }
   uint32_t t0 = millis();
   uint16_t raw[N];
@@ -274,6 +298,7 @@ static void calibrate() {
 
 // Jen pro MODE_DRY_RUN bez uložené kalibrace: posouvej lištu rukou přes čáru
 static void handCal(uint32_t ms) {
+  blueOn();
   for (uint8_t i = 0; i < N; i++) { calMin[i] = 65535; calMax[i] = 0; }
   Serial.println("Kalibrace rukou: posouvej lištu přes čáru (i krajními senzory) ...");
   uint32_t t0 = millis();
@@ -392,12 +417,12 @@ static void runStep() {
 
   if (state == ST_STOPPING) {
     uint32_t t = ms - stopStartMs;
-    if (t >= STOP_RAMP_MS) { brakeMotors(); state = ST_DONE; return; }
+    if (t >= STOP_RAMP_MS) { brakeMotors(); state = ST_DONE; redOn(); return; }
     float v = stopV * (1.0f - (float)t / STOP_RAMP_MS);
     setMotors(v, v);
     return;
   }
-  if (state == ST_DONE) { brakeMotors(); return; }
+  if (state == ST_DONE) { brakeMotors(); redOn(); return; }
 
   float v[N];
   readNorm(v);
@@ -499,10 +524,12 @@ static void runStep() {
   float leftCmd, rightCmd;
 
   if (onLine) {
+    greenOn();
     // široká příčná čára -> rovně
     u = 0; prevErr = 0; lostMs = 0; crossMode = false;
     vTarget = GAP_SPEED;
   } else if (nb > 0) {
+    greenOn();
     // vyber úsek nejblíž poslední poloze (křižovatka -> rovně)
     int best = 0;
     for (int i = 1; i < nb; i++)
@@ -566,6 +593,7 @@ static void runStep() {
     // čára ztracena
     lostMs += dt * 1000.0f;
     if (lostMs < GAP_HOLD_MS) {          // přerušovaná čára
+      cyanOn();
       u = uHold * GAP_U_GAIN;
       vTarget = GAP_SPEED;
     } else if (lostMs < LOST_STOP_MS) {  // hledání čáry
@@ -573,6 +601,7 @@ static void runStep() {
     } else {
       brakeMotors();
       state = ST_DONE;
+      redOn();
       return;
     }
   }
@@ -634,8 +663,10 @@ static void motorTest() {
 void setup() {
   Serial.begin(115200);
 
-  uint8_t outs[] = {PIN_PWMA, PIN_AIN1, PIN_AIN2, PIN_STBY, PIN_BIN1, PIN_BIN2, PIN_PWMB};
+  uint8_t outs[] = {PIN_PWMA, PIN_AIN1, PIN_AIN2, PIN_STBY, PIN_BIN1, PIN_BIN2, PIN_PWMB,
+                    PIN_LED_RED, PIN_LED_GREEN, PIN_LED_BLUE};
   for (uint8_t p : outs) pinMode(p, OUTPUT);
+  setRgbLed(false, false, false);
   digitalWrite(PIN_STBY, HIGH);
   analogWriteResolution(10);
   analogWriteFrequency(PIN_PWMA, 20000);
@@ -654,12 +685,14 @@ void setup() {
   // čekání na postavení vozítka před čáru START/CÍL
   uint32_t t0 = millis();
   while (millis() - t0 < START_DELAY_MS) handleSerialTuning();
+  greenOn();
   tPrev = micros();
   batMs = millis();
 #elif MODE == MODE_SENSOR_TEST
   if (!loadCal()) calibrate();
 #elif MODE == MODE_DRY_RUN
   if (!loadCal()) handCal(6000);
+  greenOn();
   tPrev = micros();
   batMs = millis();
 #endif
