@@ -1,4 +1,4 @@
-# Technická dokumentace: Linefollower 4.0 2026 
+# Technická zpráva: Linefollower 4.0 2026 
 
 **Tým:** Jakub Lukšík & Matěj Dvořák  
 **Škola:** Střední škola informatiky a finančních služeb (INFIS)  
@@ -83,9 +83,9 @@ Elektronický systém je postaven na vlastnoručně navrženém a osazeném DPS 
 Software implementuje digitální **PID regulátor**, který vypočítává korekci směru na základě váženého průměru hodnot ze senzorového pole.
 
 ### Konfigurované parametry regulace:
-* **P (Proporcionální složka):** $K_p = ___________$ – určuje okamžitou reakci na aktuální odchylku od středu.
-* **I (Integrální složka):** $K_i = ____________$ – koriguje drobnou systematickou chybu v delších úsecích.
-* **D (Derivační složka):** $K_d = ____________$ – predikuje budoucí chybu a tlumí překmity při rychlých změnách směru.
+* **P (Proporcionální složka):** K_p = ______ – určuje okamžitou reakci na aktuální odchylku od středu.
+* **I (Integrální složka):** K_i = ______ – koriguje drobnou systematickou chybu v delších úsecích.
+* **D (Derivační složka):** K_d = ______ – predikuje budoucí chybu a tlumí překmity při rychlých změnách směru.
 
 Robot pracuje s normalizovanou pozicí čáry v rozsahu 0 až 3000. Základní rychlost pohybu (`BASE_SPEED`) je nastavena na hodnotu 30 000 pro dosažení optimálního poměru mezi stabilitou a časem průjezdu.
 
