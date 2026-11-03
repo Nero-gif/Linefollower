@@ -17,11 +17,9 @@ Konstrukce robota se zaměřuje na nízké těžiště, tuhost a nízko umístě
 * **Výroba:** Hlavní díly jsou vyrobeny 3D tiskem z materiálu PLA pro snadný a levný tisk.
 * **Pohon:** Robot využívá dva převodové motory řady GA12-N20 6V s integrovaným převodem 1:30
 
-* **Celková hmotnost:** 
-* **Rozvor kol:**
-* **Průměr kol:**
-
-[//]: # (* TODO: doplnit hodnoty)
+* **Celková hmotnost:** 390 g
+* **Rozvor kol:** 150 mm
+* **Průměr kol:** 28 mm
 
 ## 3. Hardware a elektronika
 Elektronický systém je postaven na vlastnoručně navrženém a osazeném DPS v programu KiCad, s důrazem na čistotu signálů a efektivní napájení.
@@ -134,7 +132,8 @@ Vzhledem k použití Li-ion akumulátorů jsou dodržovány tyto bezpečnostní 
 ---
 
 ## 7. Přílohy
-* **Příloha A:** Technický výkres šasi
+* **Příloha A:** Technický výkres 3D tisků
 * **Příloha B:** Schéma zapojení
-* **Příloha C:** Kompletní zdrojový kód
+* **Příloha C:** PCB
+* **Příloha D:** Kompletní zdrojový kód
 
