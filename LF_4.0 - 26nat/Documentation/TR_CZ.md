@@ -78,16 +78,41 @@ Elektronický systém je postaven na vlastnoručně navrženém a osazeném DPS 
 | **Zem** | GND | - | Společná zem |
 
 ## 4. Algoritmus řízení
-Software implementuje digitální **PID regulátor**, který vypočítává korekci směru na základě váženého průměru hodnot ze senzorového pole.
+Program je napsán v prostředí Arduino (Teensyduino) a implementuje digitální **PID regulátor**, který vypočítává korekci směru z polohy čáry pod senzorovou lištou. Regulace běží v nepřetržité smyčce bez pevné periody, krok `dt` se měří pomocí `micros()` (typicky jednotky ms).
+
+### Průběh jízdy
+1. **Kalibrace po zapnutí:** robot se po dobu 4,3 s otáčí na místě vlevo/vpravo nad čárou a pro každý senzor si zaznamená minimální (bílá) a maximální (černá) dobu vybití. Kalibrace se ukládá do EEPROM (lze ji při startu i jen načíst).
+2. **Čekání 4 s** na postavení robota před čáru START/CÍL. V této době lze přes USB sériovou linku měnit parametry (`kp`, `ki`, `kd`, `speed`, `drop`, …).
+3. **Jízda:** první přejetí čáry START/CÍL (souvislá černá přes ≥ 13 senzorů včetně obou krajních) znamená start, druhé (nejdříve po 700 ms) cíl. Po cíli robot plynule zpomalí během 900 ms a zabrzdí.
+
+Kromě běžné jízdy obsahuje program testovací režimy: výpis senzorů, test motorů a „suchý běh“ (celá logika bez motorů s výpisem stavu).
+
+### Čtení senzorů a poloha čáry
+Senzory QTR-MD-16RC jsou čteny metodou RC – kondenzátor se nabije a měří se doba vybití (max. 3 ms). Pro zrychlení smyčky se čtení ukončí již při 70 % kalibrovaného rozsahu bílá–černá. Hodnoty se normalizují na rozsah 0,0 (bílá) až 1,0 (čára), za čáru se považuje hodnota ≥ 0,45.
+
+Poloha čáry se určuje jako vážený průměr (těžiště) souvislého úseku aktivních senzorů v rozsahu **0 až 15** (index senzoru), střed lišty odpovídá hodnotě **7,5**. Odchylka `err = c − 7,5` je tedy v jednotkách senzorů (kladná = čára vpravo).
+
+### PID regulátor
+Akční zásah `u = K_p·err + K_i·∫err + K_d·d(err)/dt`, omezený na ±700. Derivační složka je filtrována dolní propustí (koeficient 0,25), integrační složka je omezena na ±200. Rychlosti kol jsou `levé = v + u`, `pravé = v − u`; pokud jedno kolo narazí na limit, posune se i druhé, aby se zachoval rozdíl rychlostí (točivost). Vnitřní kolo smí v ostré zatáčce couvat rychlostí až 400.
 
 ### Konfigurované parametry regulace:
 * **P (Proporcionální složka):** K_p = ______ – určuje okamžitou reakci na aktuální odchylku od středu.
-* **I (Integrální složka):** K_i = ______ – koriguje drobnou systematickou chybu v delších úsecích.
+* **I (Integrální složka):** K_i = 0 – nepoužívá se (trať neobsahuje dlouhé úseky se systematickou chybou).
 * **D (Derivační složka):** K_d = ______ – predikuje budoucí chybu a tlumí překmity při rychlých změnách směru.
 
-Robot pracuje s normalizovanou pozicí čáry v rozsahu 0 až 3000. Základní rychlost pohybu (`BASE_SPEED`) je nastavena na hodnotu 30 000 pro dosažení optimálního poměru mezi stabilitou a časem průjezdu.
+### Řízení rychlosti
+Rychlost je udávána v relativních jednotkách, kde 1000 odpovídá plné střídě PWM (10bit PWM, frekvence 20 kHz). Základní rychlost (`BASE_SPEED`) je **1200** – po kompenzaci napětí baterie (viz níže) odpovídá téměř plnému výkonu. Rychlost se snižuje (až o 450, minimálně na 280) podle velikosti odchylky a podle filtrované střední hodnoty řízení, takže robot zpomalí už při vjezdu do dlouhé zatáčky.
 
-Napájecí větev pro motory robota nemá pevně regulované napětí. Konstrukčním napětím motorů je **6 V**, proto je na základě naměřené hodnoty napěťového děliče upravováno PWM. 
+Kvůli kelímku s vodou je rozjezd omezen rampou **1200 jednotek/s**, zatímco brzdit smí robot téměř okamžitě (12 000 jednotek/s).
+
+### Speciální prvky trati
+* **Pravoúhlá zatáčka:** rozpozná se, když se široká čára (≥ 7 senzorů) dotýká jednoho okraje lišty a druhý okraj je bílý, nebo když čára náhle zmizí za okrajem lišty. Robot podle vstupní rychlosti krátce zabrzdí zkratem motorů, popojede rovně, aby se osa kol dostala nad zatáčku, a otáčí se, dokud není čára opět u středu lišty (max. 1,5 s).
+* **Křižovatka:** souvislá oblast širší než 6 senzorů (bloky oddělené mezerou do 4 senzorů, např. bílou tečkou, se slučují). Robot měření ignoruje, drží předchozí směr a jede rychlostí max. 1000, dokud čáru znovu nenajde v okolí očekávané polohy (max. 500 ms).
+* **Přerušovaná čára:** při ztrátě čáry robot po dobu 350 ms drží poslední filtrované řízení. Poté se otáčí na místě směrem, kde byla čára naposledy; pokud ji do 2,5 s nenajde, zastaví.
+* **Zóna zpomalení:** mezi dokončením 2. a 3. pravoúhlé zatáčky je rychlost omezena na 1000.
+
+### Kompenzace napětí baterie
+Napájecí větev pro motory robota nemá pevně regulované napětí. Konstrukčním napětím motorů je **6 V**, proto se každých 250 ms měří napětí baterie přes odporový dělič (33 kΩ / 10 kΩ, 12bit ADC, průměrování 8 vzorků) a všechny požadavky na PWM se násobí koeficientem `6,0 V / U_bat` (omezeno na 0,7 – 1,4). Chování robota je tak nezávislé na stavu nabití akumulátoru.
 
 ## 5. Bezpečnost a údržba
 Vzhledem k použití Li-ion akumulátorů jsou dodržovány tyto bezpečnostní zásady:
