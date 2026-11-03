@@ -15,9 +15,7 @@ Projekt "Linefollower 4.0 2026" byl vyvinut jako soutěžní robot pro autonomn�
 Konstrukce robota se zaměřuje na nízké těžiště, tuhost a nízko umístěné posazení kelímku s vodou, což je klíčové pro stabilitu v zatáčkách při vysokých rychlostech a schopnost udržet kelímek s vodou stabilní.
 * **Návrh:** Šasi bylo kompletně navrženo v CAD prostředí **Autodesk Fusion 360**.
 * **Výroba:** Hlavní díly jsou vyrobeny 3D tiskem z materiálu PLA pro snadný a levný tisk.
-* **Pohon:** Robot využívá dva převodové motory řady N20
-
-[//]: # (* TODO: doplnit použité mototy včetně převodů)
+* **Pohon:** Robot využívá dva převodové motory řady GA12-N20 6V s integrovaným převodem 1:30
 
 * **Celková hmotnost:** 
 * **Rozvor kol:**
@@ -30,13 +28,12 @@ Elektronický systém je postaven na vlastnoručně navrženém a osazeném DPS 
 
 ### Klíčové komponenty:
 * **Řídicí jednotka:** Teensy 4.1 (ARM Cortex-M7, 600 MHz). Zvolena pro nadstandardní výpočetní výkon umožňující vysokou vzorkovací frekvenci PID smyčky.
-* **Motorový budič:** 
+* **Motorový budič:** Laskakit Dvoumotorový řadič TB6612FNG
 
-[//]: # (* TODO: doplnit budič)
 * **Senzorové pole:** 16 infračervených senzorů QTR-MD-16RC, optimalizovaných pro rychlou odezvu na změnu kontrastu. Lišta senzorů je připojena kabelem IDC na konektor J1.
 * **Napájení:** 2x 18650 ( = 2s Li-Po, nominální napětí 7.4V, minimální napětí 6V, maximální napětí 8.4. Připojen přes konektory XT60. Celé napájení spíná výkonový P-kanálový MOSFET IRF4905 (Q1), jehož gate je řízena přes ochranný rezistor R1 (10 kΩ) z ovládacího spínače. Toto řešení umožňuje bezpečné odpojení celého silového okruhu bez mechanického přerušení kabeláže.
 * **Stabilizace napětí:** 
-  * Spínaný regulátor TSR 1-2450 (U2) zajišťuje stabilních 5 V pro Teensy 4.1 s účinností až 94 %.
+  * Stabilizátor napětí LM2940CT5.0 (U2) zajišťuje stabilních 5 V pro Teensy 4.1 s účinností až 94 %.
   * Logické obvody jsou napájeny samostanou napájecí větví s regulovaným napětím 3.3 V pomocí TSR 1-2433, nikoliv mikrokontrolerem Teensy 4.1 z důvodu předpokládaného odběru vyššího než je udávané maximum vývodu Teensy. 
 
 ### Zapojení pinů (Teensy 4.1):
@@ -73,11 +70,15 @@ Elektronický systém je postaven na vlastnoručně navrženém a osazeném DPS 
 | **Senzor čáry 4** | D38 | IN/OUT | QTR-MD-16RC (J1) - RC04 |
 | **Senzor čáry 6** | D39 | IN/OUT | QTR-MD-16RC (J1) - RC06 |
 | **Senzor čáry 8** | D40 | IN/OUT | QTR-MD-16RC (J1) - RC08 |
+|**Spínání sudých senzorů**| D14 | OUT | QTR-MD-16RC (J1) - even |
+|**Spínání lichých senzorů**| D15 | OUT | QTR-MD-16RC (J1) - odd |
+| **RGB LED - červená** | D21 | OUT | RGB LED - R |
+| **RGB LED - zelená** | D22 | OUT | RGB LED - G |
+| **RGB LED - modrá** | D23 | OUT | RGB LED - B |
 | **Napětí baterie** | D41 / A17 | IN (analog) | BATT_SENSE - odporový dělič R3 (33 kΩ) / R4 (10 kΩ), filtrace C3 |
 | **Napájení** | VIN | IN | 5 V z regulátoru U2 |
 | **Zem** | GND | - | Společná zem |
 
-[//]: # (TODO: doplnit minimálně odd/even konektory)
 ## 4. Algoritmus řízení
 Software implementuje digitální **PID regulátor**, který vypočítává korekci směru na základě váženého průměru hodnot ze senzorového pole.
 
@@ -115,6 +116,7 @@ Vzhledem k použití LiPo akumulátorů jsou dodržovány tyto bezpečnostní z�
 | **SW1** | JST XH 1x02 | 1 ks | Konektor hlavního vypínače (ovládá gate Q1) |
 | **BT2** | Pájecí body pro vodič 2 mm² | 1 ks | Připojení akumulátoru 2S |
 | **D1** | LED 5 mm | 1 ks | Indikace zapnutého napájení (větev 6V) |
+| **D2** | LED RGB | 1 ks | Indikace stavu kódu |
 | **C1** | 1 µF | 1 ks | Keramický kondenzátor napájecí větve 6V |
 | **C2** | 47 µF (elektrolytický) | 1 ks | Výstupní kondenzátor regulátoru U2 (5 V) |
 | **C3** | 100 nF | 1 ks | Filtrace měření napětí baterie (BATT_SENSE) |
@@ -125,6 +127,9 @@ Vzhledem k použití LiPo akumulátorů jsou dodržovány tyto bezpečnostní z�
 | **R2** | 1 kΩ | 1 ks | Předřadný rezistor LED D1 |
 | **R3** | 33 kΩ | 1 ks | Horní rezistor děliče napětí baterie |
 | **R4** | 10 kΩ | 1 ks | Dolní rezistor děliče napětí baterie |
+| **R5** | 330 Ω | 1 ks | Ochranný resistor RGB LED |
+| **R6** | 200 Ω | 1 ks | Ochranný resistor RGB LED |
+| **R7** | 200 Ω | 1 ks | Ochranný resistor RGB LED |
 ---
 
 ## 7. Přílohy
