@@ -48,6 +48,7 @@ const uint16_t QTR_TIMEOUT_US = 3000;
 const uint8_t PIN_VBAT = 41;
 const float VBAT_DIV = (33.0f + 10.0f) / 10.0f;
 const float VBAT_NOMINAL = 6.0f;      // napětí, pro které ladíš rychlosti
+const float VBAT_STOP = 7.0f;         // pod touto hodnotou robot zastaví
 
 // RGB LED (společná katoda: HIGH = svítí)
 // Mapování podle skutečného pořadí vývodů LED:
@@ -60,7 +61,7 @@ const uint8_t PIN_LED_BLUE = 21;
 float Kp = 480.0f;            // [rychlost / jednotku senzoru]
 float Ki = 0.0f;
 float Kd = 5.0f;          // Td = Kd/Kp ~ 30 ms
-float BASE_SPEED = 1200.0f;   // 0..1000
+float BASE_SPEED = 1400.0f;   // 0..1000                                                              --------------------------------here
 float SPEED_DROP = 450.0f;   // o kolik se zpomalí při max. odchylce
 const float MIN_SPEED = 280.0f;
 const float ACCEL = 1200.0f; // zrychlení [jednotek/s] (nízké kvůli vodě)
@@ -70,7 +71,7 @@ float U_REF = 350.0f;        // stálé řízení |uAvg| při kterém je plná r
 const float U_TAU = 0.08f;   // [s] filtr střední hodnoty řízení
 const float REV_RUN = 400.0f;// kolik smí vnitřní kolo couvat při ostré zatáčce
 
-// --- pravoúhlé zatáčky ---
+// --- pravoúhlé zatáčky ---CAL
 const int   CORNER_MIN_W = 7;           // čára dotýkající se okraje lišty a široká aspoň tolik senzorů = zatáčka
 const float CORNER_CONFIRM_MS = 8.0f;  // jak dlouho musí podmínka platit (odliší šikmou čáru START/CÍL)
 float CORNER_SPEED = 450.0f;            // rychlost při přiblížení k zatáčce
@@ -115,7 +116,7 @@ const uint32_t LOST_STOP_MS = 2500;     // ztráta čáry delší než toto -> s
 const float    SEARCH_SPEED = 250.0f;
 
 const uint32_t STOP_RAMP_MS = 900;      // plynulé zastavení po cíli
-const uint32_t START_DELAY_MS = 4000;
+const uint32_t START_DELAY_MS = 0;
 const int      CAL_SPEED = 360;
 const uint32_t CAL_TIME_MS = 4300;
 const uint32_t CAL_SWITCH_MS = 600;
@@ -124,6 +125,10 @@ const uint32_t CAL_SWITCH_MS = 600;
 uint16_t calMin[N], calMax[N], cutUs[N];
 const float CUT_FRAC = 0.7f;   // čtení se utne při 70 % rozsahu bílá..černá; neodpojený senzor = 1.0
 float vScale = 1.0f;
+static bool lowBattery = false;
+static uint32_t lowBatteryBlinkMs = 0;
+static uint8_t lowBatteryBlinkPhase = 0;
+static uint32_t lowBatteryReportMs = 0;
 
 enum State { ST_RUN, ST_STOPPING, ST_DONE };
 State state = ST_RUN;
@@ -198,8 +203,31 @@ static float readBatteryV() {
 
 static void updateBatteryScale() {
   float v = readBatteryV();
+  Serial.printf("Vbat = %.2f V\n", v);
+  if (v < VBAT_STOP) {
+    lowBattery = true;
+    brakeMotors();
+    return;
+  }
   if (v < 3.0f) { vScale = 1.0f; return; }   // měření nedává smysl -> bez kompenzace
   vScale = constrain(VBAT_NOMINAL / v, 0.7f, 1.4f);
+}
+
+static void batteryLowStep() {
+  brakeMotors();
+  uint32_t now = millis();
+  if (now - lowBatteryReportMs >= 1000) {
+    lowBatteryReportMs = now;
+    Serial.printf("Vbat = %.2f V - NIZKE NAPETI, MOTORY ZASTAVENY\n", readBatteryV());
+  }
+  if (now - lowBatteryBlinkMs < 250) return;
+  lowBatteryBlinkMs = now;
+  switch (lowBatteryBlinkPhase++ % 4) {
+    case 0: greenOn(); break;
+    case 1: blueOn();  break;
+    case 2: cyanOn();  break;
+    default: setRgbLed(false, false, false); break;
+  }
 }
 
 // ===================== SENZORY =====================
@@ -283,6 +311,7 @@ static void calibrate() {
   uint32_t t0 = millis();
   uint16_t raw[N];
   while (millis() - t0 < CAL_TIME_MS) {
+    if (lowBattery) { brakeMotors(); return; }
     bool other = (((millis() - t0) + CAL_SWITCH_MS / 2) / CAL_SWITCH_MS) & 1;
     int d = other ? -1 : 1;
     setMotors(d * CAL_SPEED, -d * CAL_SPEED);
@@ -304,6 +333,7 @@ static void handCal(uint32_t ms) {
   uint32_t t0 = millis();
   uint16_t raw[N];
   while (millis() - t0 < ms) {
+    if (lowBattery) { brakeMotors(); return; }
     readRaw(raw);
     for (uint8_t i = 0; i < N; i++) {
       if (raw[i] < calMin[i]) calMin[i] = raw[i];
@@ -407,6 +437,8 @@ static int cornerCount = 0;   // počet dokončených pravoúhlých zatáček od
 static uint32_t batMs = 0;
 
 static void runStep() {
+  if (lowBattery) { batteryLowStep(); return; }
+
   uint32_t now = micros();
   float dt = (now - tPrev) * 1e-6f;
   tPrev = now;
@@ -414,6 +446,7 @@ static void runStep() {
   uint32_t ms = millis();
 
   if (ms - batMs > 250) { batMs = ms; updateBatteryScale(); }
+  if (lowBattery) { batteryLowStep(); return; }
 
   if (state == ST_STOPPING) {
     uint32_t t = ms - stopStartMs;
@@ -441,12 +474,13 @@ static void runStep() {
     if (lineEvents == 0 || ms - lastEventMs > MIN_EVENT_GAP_MS) {
       lineEvents++;
       lastEventMs = ms;
-      if (lineEvents >= 2) {            // cíl
-        state = ST_STOPPING;
-        stopStartMs = ms;
-        stopV = vCur;
-        return;
-      }
+      // Vypnuto: kolmá čára už jízdu nezastavuje.
+      // if (lineEvents >= 2) {            // cíl
+      //   state = ST_STOPPING;
+      //   stopStartMs = ms;
+      //   stopV = vCur;
+      //   return;
+      // }
     }
   } else if (inLine && widest < START_LINE_END_W) {
     inLine = false;

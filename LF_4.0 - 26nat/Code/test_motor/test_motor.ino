@@ -5,7 +5,7 @@ const int BATT_SENSE = 41;            // A17
 const float R_TOP = 33000.0;          // R3
 const float R_BOT = 10000.0;          // R4
 const float ADC_VREF = 3.3;
-const float CAL = 7.3 / 6.8;               // doladit podle multimetru - naměřená  / vypsaná
+const float CAL = 8.12 / 8.41;               // doladit podle multimetru
 
 const float MOTOR_VMAX = 6.0;         // tvrdý strop napětí na motoru
 const float TEST_V = 3.0;             // napětí při testu (klidně zvedni až na 6.0)
@@ -14,12 +14,10 @@ const float VBAT_MIN = 4.5;           // pod tím je vypínač vypnutý / jedeš
 const int PWM_BITS = 12;
 const int PWM_MAX = (1 << PWM_BITS) - 1;
 
-const int ADC_BITS = 12;
-
 float readBattery() {
   uint32_t sum = 0;
   for (int i = 0; i < 16; i++) sum += analogRead(BATT_SENSE);
-  float vadc = (sum / 16.0) / ((2^ADC_BITS) - 1) * ADC_VREF;      // 12bit ADC
+  float vadc = (sum / 16.0) / 4095.0 * ADC_VREF;      // 12bit ADC
   return vadc * (R_TOP + R_BOT) / R_BOT * CAL;
 }
 
@@ -62,7 +60,7 @@ void setup() {
   pinMode(PWMB, OUTPUT); pinMode(BIN1, OUTPUT); pinMode(BIN2, OUTPUT);
   pinMode(STBY, OUTPUT);
 
-  analogReadResolution(ADC_BITS));
+  analogReadResolution(12);
   analogWriteResolution(PWM_BITS);
   analogWriteFrequency(PWMA, 20000);
   analogWriteFrequency(PWMB, 20000);
